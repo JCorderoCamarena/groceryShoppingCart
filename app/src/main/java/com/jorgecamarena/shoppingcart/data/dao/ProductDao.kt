@@ -1,21 +1,24 @@
 package com.jorgecamarena.shoppingcart.data.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.jorgecamarena.shoppingcart.data.entity.ProductEntity
-import kotlinx.coroutines.flow.Flow
+import com.jorgecamarena.shoppingcart.data.entity.Product
 
 @Dao
 interface ProductDao {
 
     @Query("SELECT * FROM products")
-    fun getProducts(): Flow<List<ProductEntity>>
+    fun getProducts(): LiveData<List<Product>>
+
+     @Query("SELECT * FROM products ORDER BY product_name ASC")
+    fun getProductsOrderedByName(): LiveData<List<Product>>
 
     @Insert
-    suspend fun saveProduct(productEntity: ProductEntity)
+    suspend fun saveProduct(product: Product)
 
     @Update
-    fun updateProduct(productEntity: ProductEntity)
+    fun updateProduct(product: Product)
 
     @Delete
-    fun deleteProduct(productEntity: ProductEntity)
+    fun deleteProduct(product: Product)
 }

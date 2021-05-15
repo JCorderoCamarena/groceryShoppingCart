@@ -15,11 +15,11 @@ import androidx.room.PrimaryKey
 //    ]
 )
 data class CartItem(
-    @PrimaryKey(autoGenerate = true) val id: Long,
-    @ColumnInfo(name = "cart_id") val cartId: Long,
-    @ColumnInfo(name = "product_id") val productId: Long,
-    @ColumnInfo(name = "cart_detail_id") val cartDetailId: Long,
-    @ColumnInfo val status: Int,
-    @ColumnInfo val quantity: Int,
-    @ColumnInfo val duration: Long
+    @PrimaryKey(autoGenerate = true) val id: Long?,
+    @ColumnInfo(name = "cart_id") val cartId: Long?,
+    @ColumnInfo(name = "product_id") val productId: Long?,
+    @ColumnInfo(name = "cart_detail_id") val cartDetailId: Long?,
+    @ColumnInfo val status: Int?,
+    @ColumnInfo val quantity: Int?,
+    @ColumnInfo val duration: Long?
 )

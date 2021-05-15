@@ -6,27 +6,27 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import com.jorgecamarena.shoppingcart.data.entity.CartEntity
+import com.jorgecamarena.shoppingcart.data.entity.Cart
 
 @Dao
 interface CartDao {
 
     @Query("SELECT * FROM carts")
-    fun getAllCarts(): LiveData<List<CartEntity>>
+    fun getAllCarts(): LiveData<List<Cart>>
 
     @Query("SELECT * FROM carts ORDER BY created_at DESC")
-    fun getAllDesc(): LiveData<List<CartEntity>>
+    fun getAllDesc(): LiveData<List<Cart>>
 
     @Query("SELECT * FROM carts ORDER BY created_at DESC LIMIT :limit")
-    fun getLastCarts(limit: Int): LiveData<List<CartEntity>>
+    fun getLastCarts(limit: Int): LiveData<List<Cart>>
 
     @Insert
-    fun insert(cartEntity: CartEntity)
+    fun insert(cart: Cart)
 
     @Insert
-    suspend fun insertAll(vararg cartEntities: CartEntity)
+    suspend fun insertAll(vararg carts: Cart)
 
     @Delete
-    fun delete(cartEntity: CartEntity)
+    fun delete(cart: Cart)
 
 }

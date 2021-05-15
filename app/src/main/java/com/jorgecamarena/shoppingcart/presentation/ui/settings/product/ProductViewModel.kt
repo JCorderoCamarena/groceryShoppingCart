@@ -1,39 +1,39 @@
 package com.jorgecamarena.shoppingcart.presentation.ui.settings.product
 
-
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.jorgecamarena.shoppingcart.data.entity.ProductEntity
-import com.jorgecamarena.shoppingcart.data.repository.ProductRepositoryImpl
+import com.jorgecamarena.shoppingcart.data.entity.Product
+import com.jorgecamarena.shoppingcart.data.repository.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ProductViewModel @Inject constructor(
-    private val productRepository: ProductRepositoryImpl
+    private val productRepository: ProductRepository
 ) : ViewModel() {
 
-    val products = productRepository.products.asLiveData()
+    var products: LiveData<List<Product>> = productRepository.getProducts()
 
     var loading by mutableStateOf(false)
         private set
 
-
     fun saveProduct(name: String, imageLink: String) {
         loading = true
-        val product = ProductEntity()
-        val productToSave = product.copy(
+        val product = Product(
+            id = null,
             name = name,
             imageLink = imageLink,
-            createdAt = System.currentTimeMillis()
+            measurement = null,
+            createdAt = System.currentTimeMillis(),
+            modifiedAt = null
         )
         viewModelScope.launch {
-            productRepository.saveProduct(productToSave)
+            productRepository.saveProduct(product)
             loading = false
         }
     }

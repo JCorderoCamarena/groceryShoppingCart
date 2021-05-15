@@ -12,13 +12,13 @@ import com.jorgecamarena.shoppingcart.utils.DATABASE_NAME
 
 @Database(
     entities = [
-        CartEntity::class,
-        CartItemEntity::class,
-        DepartmentEntity::class,
-        MeasureEntity::class,
-        ProductEntity::class,
-        ProductCartDetailEntity::class,
-        StatusEntity::class
+        Cart::class,
+        CartItem::class,
+        Department::class,
+        Measure::class,
+        Product::class,
+        ProductCartDetail::class,
+        Status::class
     ],
     version = 1,
     exportSchema = false

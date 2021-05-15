@@ -17,19 +17,21 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.systemBarsPadding
 import com.jorgecamarena.shoppingcart.R
-import com.jorgecamarena.shoppingcart.data.entity.ProductEntity
+import com.jorgecamarena.shoppingcart.data.entity.Product
 
 @Composable
 fun ProductsScreen(productViewModel: ProductViewModel = viewModel(), onShowBackButton: (Boolean) -> Unit) {
     onShowBackButton(true)
 
-    val productEntities: List<ProductEntity> by productViewModel.products.observeAsState(listOf())
+    val products = productViewModel.products.observeAsState().value
 
-    for (product in productEntities) {
-        Log.d("ProductScreen", "ProductsScreen: ${product.name}")
+    if (products != null) {
+        for (product in products) {
+            Log.d("ProductScreen", "ProductsScreen: ${product.name}")
+        }
     }
 
-    if (productEntities.isEmpty()) {
+    if (products == null || products.isEmpty()) {
         Column(
             verticalArrangement = Arrangement.Center
         ) {
@@ -50,8 +52,8 @@ fun ProductsScreen(productViewModel: ProductViewModel = viewModel(), onShowBackB
                 contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                items(productEntities) { product ->
-                   ProductCard(modifier = Modifier.fillMaxWidth(), productEntity = product)
+                items(products) { product ->
+                   ProductCard(modifier = Modifier.fillMaxWidth(), product = product)
                 }
             }
         }
@@ -59,7 +61,7 @@ fun ProductsScreen(productViewModel: ProductViewModel = viewModel(), onShowBackB
 }
 
 @Composable
-fun ProductCard(modifier: Modifier, productEntity: ProductEntity) {
+fun ProductCard(modifier: Modifier, product: Product) {
     Card(
         modifier = modifier,
         shape = RoundedCornerShape(5.dp)
@@ -68,7 +70,7 @@ fun ProductCard(modifier: Modifier, productEntity: ProductEntity) {
             modifier = Modifier
                 .padding(16.dp)
         ) {
-            Text(text = productEntity.name)
+            product.name?.let { Text(text = it) }
         }
     }
 }
