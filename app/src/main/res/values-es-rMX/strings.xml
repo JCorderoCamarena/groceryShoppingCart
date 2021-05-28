@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Shopping Cart</string>
+    <string name="title_home">Inicio</string>
+    <string name="title_settings">Configuración</string>
+    <string name="title_about">Acerca</string>
+
+    <string name="label_no_products_found">Ningún producto encontrado</string>
+    <string name="product_name">Nombre de Producto</string>
+    <string name="label_image_link">Link de la Imagen</string>
+    <string name="label_cancel">Cancelar</string>
+    <string name="label_save">Guardar</string>
+</resources>
