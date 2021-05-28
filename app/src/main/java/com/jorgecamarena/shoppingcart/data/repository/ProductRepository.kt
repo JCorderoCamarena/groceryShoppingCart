@@ -25,7 +25,7 @@ class ProductRepository @Inject constructor(
         productDao.saveProduct(product)
     }
 
-    fun deleteProduct(product: Product) {
+    suspend fun deleteProduct(product: Product) {
         productDao.deleteProduct(product)
     }
 

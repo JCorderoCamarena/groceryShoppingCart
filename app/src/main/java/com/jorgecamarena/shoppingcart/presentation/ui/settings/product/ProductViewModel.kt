@@ -4,6 +4,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jorgecamarena.shoppingcart.data.entity.Product
@@ -17,7 +18,11 @@ class ProductViewModel @Inject constructor(
     private val productRepository: ProductRepository
 ) : ViewModel() {
 
-    var products: LiveData<List<Product>> = productRepository.getProducts()
+    var products: LiveData<List<Product>> = MutableLiveData<List<Product>>()
+
+    fun getProducts() {
+        products = productRepository.getProducts()
+    }
 
     var loading by mutableStateOf(false)
         private set
@@ -35,6 +40,12 @@ class ProductViewModel @Inject constructor(
         viewModelScope.launch {
             productRepository.saveProduct(product)
             loading = false
+        }
+    }
+
+    fun deleteProduct(product: Product) {
+        viewModelScope.launch {
+            productRepository.deleteProduct(product = product)
         }
     }
 

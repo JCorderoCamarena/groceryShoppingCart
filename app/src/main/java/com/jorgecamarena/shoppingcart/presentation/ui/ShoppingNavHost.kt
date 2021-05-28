@@ -1,25 +1,21 @@
 package com.jorgecamarena.shoppingcart.presentation.ui
 
-import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltNavGraphViewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.*
 import com.google.accompanist.insets.navigationBarsPadding
 import com.jorgecamarena.shoppingcart.presentation.ui.about.AboutView
 import com.jorgecamarena.shoppingcart.presentation.ui.home.HomeView
-import com.jorgecamarena.shoppingcart.presentation.ui.home.HomeViewModel
 import com.jorgecamarena.shoppingcart.presentation.ui.settings.*
 import com.jorgecamarena.shoppingcart.presentation.ui.settings.product.AddProductScreen
 import com.jorgecamarena.shoppingcart.presentation.ui.settings.product.ProductViewModel
@@ -38,9 +34,9 @@ fun ShoppingNavHost() {
     )
 
     val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentRoute = navBackStackEntry?.arguments?.getString(KEY_ROUTE)
+    val currentRoute = navBackStackEntry?.destination?.route
 
-    var showBackButton by remember { mutableStateOf(true) }
+    val showBackButton by remember { mutableStateOf(true) }
 
     Scaffold(
         topBar = {
@@ -66,10 +62,12 @@ fun ShoppingNavHost() {
                                 // Pop up to the start destination of the graph to
                                 // avoid building up a large stack of destinations
                                 // on the back stack as users select items
-                                popUpTo = navController.graph.startDestination
+                                popUpTo(navController.graph.startDestinationId)
                                 // Avoid multiple copies of the same destination when
                                 // reselecting the same item
                                 launchSingleTop = true
+                                // Restore state when reselecting a previously selected item
+                                restoreState = true
                             }
                         }
                     )
@@ -103,7 +101,7 @@ fun ShoppingNavHost() {
                 SettingsMainView(navHostController = navController)
             }
             composable(NavigationConstants.productsMainScreen) {
-                val productViewModel = hiltNavGraphViewModel<ProductViewModel>()
+                val productViewModel = hiltViewModel<ProductViewModel>()
                 ProductsScreen(
                     productViewModel = productViewModel
                 ) {}
@@ -118,7 +116,7 @@ fun ShoppingNavHost() {
                 StatusMainView { }
             }
             composable("Add Product") {
-                val productViewModel = hiltNavGraphViewModel<ProductViewModel>()
+                val productViewModel = hiltViewModel<ProductViewModel>()
                 AddProductScreen(
                     productViewModel = productViewModel,
                     navHostController = navController
@@ -164,4 +162,15 @@ fun TopAppBar(navController: NavHostController, showBackButton: Boolean, title: 
         )
     }
 }
+
+class NavigationConstants {
+    companion object {
+        const val settingsMainScreen      = "SettingsMainScreen"
+        const val productsMainScreen      = "ProductsMainScreen"
+        const val departmentsMainScreen   = "DepartmentsMainScreen"
+        const val measuresMainScreen      = "MeasuresMainScreen"
+        const val statusMainScreen        = "StatusMainScreen"
+    }
+}
+
 

@@ -24,8 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.navigate
-import com.jorgecamarena.shoppingcart.presentation.ui.settings.NavigationConstants
+import com.jorgecamarena.shoppingcart.presentation.ui.NavigationConstants
 import com.jorgecamarena.shoppingcart.presentation.ui.theme.DMSurfaceColor
 import com.jorgecamarena.shoppingcart.presentation.ui.theme.SecondaryLightColor
 

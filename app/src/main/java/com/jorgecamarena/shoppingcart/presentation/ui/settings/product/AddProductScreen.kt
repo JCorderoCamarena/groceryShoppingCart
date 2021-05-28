@@ -46,10 +46,13 @@ fun AddProductScreen(productViewModel: ProductViewModel, navHostController: NavH
                 Text(text = stringResource(id = R.string.label_cancel))
             }
 
-            Button(onClick = {
-                productViewModel.saveProduct(name = name, imageLink = imageLink)
-                navHostController.navigateUp()
-            }) {
+            Button(
+                onClick = {
+                    productViewModel.saveProduct(name = name, imageLink = imageLink)
+                    navHostController.navigateUp()
+                },
+                enabled = name.isNotBlank() && imageLink.isNotBlank()
+            ) {
                 Text(text = stringResource(id = R.string.label_save))
             }
         }

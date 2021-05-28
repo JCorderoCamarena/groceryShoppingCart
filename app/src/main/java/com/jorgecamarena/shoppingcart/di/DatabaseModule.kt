@@ -2,8 +2,7 @@ package com.jorgecamarena.shoppingcart.di
 
 import android.content.Context
 import com.jorgecamarena.shoppingcart.data.AppDatabase
-import com.jorgecamarena.shoppingcart.data.dao.CartDao
-import com.jorgecamarena.shoppingcart.data.dao.ProductDao
+import com.jorgecamarena.shoppingcart.data.dao.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,7 +26,32 @@ class DatabaseModule {
     }
 
     @Provides
+    fun provideCartItemDao(appDatabase: AppDatabase): CartItemDao {
+        return appDatabase.cartItemDao()
+    }
+
+    @Provides
+    fun provideDepartmentDao(appDatabase: AppDatabase): DepartmentDao {
+        return appDatabase.departmentDao()
+    }
+
+    @Provides
+    fun provideMeasureDao(appDatabase: AppDatabase): MeasureDao {
+        return appDatabase.measureDao()
+    }
+
+    @Provides
+    fun provideProductCartDetailDao(appDatabase: AppDatabase): ProductCartDetailDao {
+        return appDatabase.productCartDetailDao()
+    }
+
+    @Provides
     fun provideProductDao(appDatabase: AppDatabase): ProductDao {
         return appDatabase.productDao()
+    }
+
+    @Provides
+    fun provideStatusDao(appDatabase: AppDatabase): StatusDao {
+        return appDatabase.statusDao()
     }
 }
