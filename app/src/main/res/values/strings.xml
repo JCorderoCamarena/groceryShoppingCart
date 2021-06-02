@@ -9,5 +9,6 @@
     <string name="label_image_link">Image Link</string>
     <string name="label_cancel">Cancel</string>
     <string name="label_save">Save</string>
+    <string name="label_edit">Edit</string>
 
 </resources>

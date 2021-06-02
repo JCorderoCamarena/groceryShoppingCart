@@ -7,10 +7,10 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "products")
 data class Product(
-    @PrimaryKey(autoGenerate = true) val id: Long?,
-    @ColumnInfo(name = "product_name") val name: String?,
+    @PrimaryKey(autoGenerate = true) val id: Long? = null,
+    @ColumnInfo(name = "product_name") var name: String?,
     @ColumnInfo(name = "measurement") val measurement: Long?,
-    @ColumnInfo(name = "image_link") val imageLink: String?,
+    @ColumnInfo(name = "image_link") var imageLink: String?,
     @ColumnInfo(name = "created_at") val createdAt: Long?,
-    @ColumnInfo(name = "modified_at") val modifiedAt: Long?
+    @ColumnInfo(name = "modified_at") var modifiedAt: Long? = null
 )

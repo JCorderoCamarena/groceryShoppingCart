@@ -11,7 +11,6 @@ class ProductRepository @Inject constructor(
     private val productDao: ProductDao
 ) {
 
-    val productsCallDirectly: LiveData<List<Product>> = productDao.getProducts()
 
     fun getProducts(): LiveData<List<Product>> {
         return productDao.getProducts()
@@ -19,6 +18,10 @@ class ProductRepository @Inject constructor(
 
     fun getProductsAlphabetically(): LiveData<List<Product>> {
         return productDao.getProductsOrderedByName()
+    }
+
+    fun getProduct(productId: Long): LiveData<Product>? {
+        return productDao.getProductById(productId)
     }
 
     suspend fun saveProduct(product: Product) {
@@ -29,7 +32,7 @@ class ProductRepository @Inject constructor(
         productDao.deleteProduct(product)
     }
 
-    fun updateProduct(product: Product) {
+    suspend fun updateProduct(product: Product) {
         productDao.updateProduct(product)
     }
 

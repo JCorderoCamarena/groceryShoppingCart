@@ -13,11 +13,14 @@ interface ProductDao {
      @Query("SELECT * FROM products ORDER BY product_name ASC")
     fun getProductsOrderedByName(): LiveData<List<Product>>
 
+    @Query("SELECT * FROM products WHERE id = :productId")
+    fun getProductById(productId: Long): LiveData<Product>?
+
     @Insert
     suspend fun saveProduct(product: Product)
 
     @Update
-    fun updateProduct(product: Product)
+    suspend fun updateProduct(product: Product)
 
     @Delete
     suspend fun deleteProduct(product: Product)

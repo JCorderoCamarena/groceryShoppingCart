@@ -12,12 +12,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.*
 import com.google.accompanist.insets.navigationBarsPadding
 import com.jorgecamarena.shoppingcart.presentation.ui.about.AboutView
 import com.jorgecamarena.shoppingcart.presentation.ui.home.HomeView
 import com.jorgecamarena.shoppingcart.presentation.ui.settings.*
 import com.jorgecamarena.shoppingcart.presentation.ui.settings.product.AddProductScreen
+import com.jorgecamarena.shoppingcart.presentation.ui.settings.product.EditProductScreen
 import com.jorgecamarena.shoppingcart.presentation.ui.settings.product.ProductViewModel
 import com.jorgecamarena.shoppingcart.presentation.ui.settings.product.ProductsScreen
 
@@ -37,6 +39,7 @@ fun ShoppingNavHost() {
     val currentRoute = navBackStackEntry?.destination?.route
 
     val showBackButton by remember { mutableStateOf(true) }
+
 
     Scaffold(
         topBar = {
@@ -103,7 +106,8 @@ fun ShoppingNavHost() {
             composable(NavigationConstants.productsMainScreen) {
                 val productViewModel = hiltViewModel<ProductViewModel>()
                 ProductsScreen(
-                    productViewModel = productViewModel
+                    productViewModel = productViewModel,
+                    navHostController = navController
                 ) {}
             }
             composable(NavigationConstants.departmentsMainScreen) {
@@ -121,6 +125,21 @@ fun ShoppingNavHost() {
                     productViewModel = productViewModel,
                     navHostController = navController
                 )
+            }
+            composable(
+                "Edit Product/{productId}",
+                arguments = listOf(navArgument("productId") {
+                    type = NavType.LongType
+                })
+            ) {
+                it.arguments?.getLong("productId")?.let { id ->
+                    val productViewModel = hiltViewModel<ProductViewModel>()
+                    EditProductScreen(
+                        productViewModel = productViewModel,
+                        navHostController = navController,
+                        productId = id
+                    )
+                }
             }
         }
     }

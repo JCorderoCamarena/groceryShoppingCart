@@ -10,4 +10,5 @@
     <string name="label_image_link">Link de la Imagen</string>
     <string name="label_cancel">Cancelar</string>
     <string name="label_save">Guardar</string>
+    <string name="label_edit">Editar</string>
 </resources>
