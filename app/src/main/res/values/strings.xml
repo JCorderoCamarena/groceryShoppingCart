@@ -11,4 +11,23 @@
     <string name="label_save">Save</string>
     <string name="label_edit">Edit</string>
 
+    <string name="title_products">Products</string>
+    <string name="title_add_product">Add Product</string>
+    <string name="title_edit_product">Edit Product</string>
+
+    <string name="title_departments">Departments</string>
+    <string name="title_add_department">Add Department</string>
+    <string name="title_edit_department">Edit Department</string>
+
+    <string name="title_measures">Measures</string>
+    <string name="title_add_measure">Add Measure</string>
+    <string name="title_edit_measure">Edit Measure</string>
+
+    <string name="title_status">Status</string>
+    <string name="title_add_status">Add Status</string>
+    <string name="title_edit_status">Edit Status</string>
+
+    <string name="label_no_measures_found">No measures found</string>
+    <string name="label_name">Name</string>
+
 </resources>

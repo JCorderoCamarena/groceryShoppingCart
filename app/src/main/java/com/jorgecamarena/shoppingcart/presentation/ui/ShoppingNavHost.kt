@@ -1,35 +1,38 @@
 package com.jorgecamarena.shoppingcart.presentation.ui
 
+import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.*
-import com.google.accompanist.insets.navigationBarsPadding
 import com.jorgecamarena.shoppingcart.presentation.ui.about.AboutView
 import com.jorgecamarena.shoppingcart.presentation.ui.home.HomeView
+import com.jorgecamarena.shoppingcart.presentation.ui.navigation.ScreenNavItem
 import com.jorgecamarena.shoppingcart.presentation.ui.settings.*
+import com.jorgecamarena.shoppingcart.presentation.ui.settings.measure.AddMeasureScreen
+import com.jorgecamarena.shoppingcart.presentation.ui.settings.measure.EditMeasureScreen
+import com.jorgecamarena.shoppingcart.presentation.ui.settings.measure.MeasureMainScreen
+import com.jorgecamarena.shoppingcart.presentation.ui.settings.measure.MeasureViewModel
 import com.jorgecamarena.shoppingcart.presentation.ui.settings.product.AddProductScreen
 import com.jorgecamarena.shoppingcart.presentation.ui.settings.product.EditProductScreen
 import com.jorgecamarena.shoppingcart.presentation.ui.settings.product.ProductViewModel
 import com.jorgecamarena.shoppingcart.presentation.ui.settings.product.ProductsScreen
 
 
+@ExperimentalMaterialApi
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ShoppingNavHost() {
     val navController = rememberNavController()
 
-    val items = listOf(
+    val bottomBarItems = listOf(
         ScreenNavItem.Home,
         ScreenNavItem.Settings,
         ScreenNavItem.About
@@ -38,8 +41,6 @@ fun ShoppingNavHost() {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
-    val showBackButton by remember { mutableStateOf(true) }
-
 
     Scaffold(
         topBar = {
@@ -47,19 +48,22 @@ fun ShoppingNavHost() {
                 currentRoute?.let {
                     TopAppBar(
                         navController = navController,
-                        showBackButton = showBackButton,
-                        title = it
+                        currentRoute = currentRoute
                     )
                 }
             }
         },
         bottomBar = {
             BottomNavigation {
-                items.forEach { screen ->
+                bottomBarItems.forEach { screen ->
                     BottomNavigationItem(
                         icon = { Icon(screen.icon, contentDescription = null) },
                         label = { Text(stringResource(screen.resourceId)) },
-                        selected = currentRoute == screen.route,
+                        selected = currentRoute == screen.route || currentRoute?.let {
+                            ScreenNavItem.fromScreenNavString(
+                                it
+                            ).parentRoute
+                        } == screen.item,
                         onClick = {
                             navController.navigate(screen.route) {
                                 // Pop up to the start destination of the graph to
@@ -78,48 +82,63 @@ fun ShoppingNavHost() {
             }
         },
         floatingActionButton = {
-            if (currentRoute == NavigationConstants.productsMainScreen) {
-                FloatingActionButton(onClick = { navController.navigate("Add Product") }) {
-                    Icon(imageVector = Icons.Default.Add, contentDescription = "Add Product")
-                }
-            }
-        },
-        modifier = Modifier
-            .navigationBarsPadding()
+            FloatingActionComponent(navHostController = navController, currentRoute = currentRoute)
+        }
     ) {
         NavHost(navController = navController, startDestination = ScreenNavItem.Home.route) {
             composable(ScreenNavItem.Home.route) {
-//                val homeViewModel = hiltNavGraphViewModel<HomeViewModel>()
                 HomeView()
             }
             composable(ScreenNavItem.Settings.route) {
-//                val settingsViewModel = hiltNavGraphViewModel<SettingsViewModel>()
                 SettingsMainView(navHostController = navController)
             }
             composable(ScreenNavItem.About.route) {
                 AboutView()
             }
-            // TODO: Clean Routes Below Here
-            composable(NavigationConstants.settingsMainScreen) {
-                SettingsMainView(navHostController = navController)
-            }
-            composable(NavigationConstants.productsMainScreen) {
+            composable(ScreenNavItem.ProductList.route) {
                 val productViewModel = hiltViewModel<ProductViewModel>()
                 ProductsScreen(
                     productViewModel = productViewModel,
                     navHostController = navController
                 ) {}
             }
-            composable(NavigationConstants.departmentsMainScreen) {
+            composable(ScreenNavItem.DepartmentList.route) {
                 DepartmentsMainView { }
             }
-            composable(NavigationConstants.measuresMainScreen) {
-                MeasuresMainView { }
+            composable(ScreenNavItem.MeasureList.route) {
+                val measureViewModel = hiltViewModel<MeasureViewModel>()
+                MeasureMainScreen(
+                    navHostController = navController,
+                    measureViewModel = measureViewModel
+                )
             }
-            composable(NavigationConstants.statusMainScreen) {
+            composable(ScreenNavItem.MeasureAdd.route) {
+                val measureViewModel = hiltViewModel<MeasureViewModel>()
+                AddMeasureScreen(
+                    navHostController = navController,
+                    measureViewModel = measureViewModel
+                )
+            }
+            composable(
+                ScreenNavItem.MeasureEdit.route,
+                arguments = listOf(navArgument("measureId") {
+                    type = NavType.LongType
+                })
+            ) {
+                it.arguments?.getLong("measureId")?.let {
+                    id ->
+                    val measureViewModel = hiltViewModel<MeasureViewModel>()
+                    EditMeasureScreen(
+                        navHostController = navController,
+                        measureViewModel = measureViewModel,
+                        measureId = id
+                    )
+                }
+            }
+            composable(ScreenNavItem.StatusList.route) {
                 StatusMainView { }
             }
-            composable("Add Product") {
+            composable(ScreenNavItem.ProductAdd.route) {
                 val productViewModel = hiltViewModel<ProductViewModel>()
                 AddProductScreen(
                     productViewModel = productViewModel,
@@ -127,7 +146,7 @@ fun ShoppingNavHost() {
                 )
             }
             composable(
-                "Edit Product/{productId}",
+                ScreenNavItem.ProductEdit.route,
                 arguments = listOf(navArgument("productId") {
                     type = NavType.LongType
                 })
@@ -146,50 +165,29 @@ fun ShoppingNavHost() {
 }
 
 @Composable
-fun TopAppBar(navController: NavHostController, showBackButton: Boolean, title: String) {
-    if (showBackButton) {
-        TopAppBar(
-            title = {
-                Text(
-                    style = MaterialTheme.typography.h3,
-                    text = title,
-                    fontWeight = FontWeight.W500
-                )
-            },
-            navigationIcon = {
-                if (showBackButton) {
-                    IconButton(onClick = { navController.navigateUp() }) {
-                        Icon(
-                            imageVector = Icons.Filled.ArrowBack,
-                            contentDescription = "Back"
-                        )
-                    }
-                }
-            },
-            elevation = 8.dp
-        )
-    } else {
-        TopAppBar(
-            title = {
-                Text(
-                    style = MaterialTheme.typography.h3,
-                    text = title,
-                    fontWeight = FontWeight.W500
-                )
-            },
-            elevation = 8.dp
-        )
-    }
+fun TopAppBar(navController: NavHostController, currentRoute: String) {
+    val currentScreenNavItem = ScreenNavItem.fromScreenNavString(currentRoute)
+
+    TopAppBar(
+        title = {
+            Text(
+                style = MaterialTheme.typography.h3,
+                text = stringResource(id = currentScreenNavItem.resourceId),
+                fontWeight = FontWeight.W500
+            )
+        },
+        navigationIcon = currentScreenNavItem.isPartOfBottomBar?.let { getNavigationIcon(it, navController) }
+    )
 }
 
-class NavigationConstants {
-    companion object {
-        const val settingsMainScreen      = "SettingsMainScreen"
-        const val productsMainScreen      = "ProductsMainScreen"
-        const val departmentsMainScreen   = "DepartmentsMainScreen"
-        const val measuresMainScreen      = "MeasuresMainScreen"
-        const val statusMainScreen        = "StatusMainScreen"
+fun getNavigationIcon(isPartOfBottomBar: Boolean, navController: NavHostController): @Composable (() -> Unit)? {
+    if (isPartOfBottomBar) return null
+    return {
+        IconButton(onClick = { navController.navigateUp() }) {
+            Icon(
+                imageVector = Icons.Filled.ArrowBack,
+                contentDescription = "Back"
+            )
+        }
     }
 }
-
-

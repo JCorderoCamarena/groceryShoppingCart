@@ -28,13 +28,6 @@ fun SettingsMainView(navHostController: NavHostController) {
 
 
 @Composable
-fun MeasuresMainView(onShowBackButton: (Boolean) -> Unit) {
-    onShowBackButton(true)
-    Text(text = "Measures")
-}
-
-
-@Composable
 fun DepartmentsMainView(onShowBackButton: (Boolean) -> Unit) {
     onShowBackButton(true)
     Text(text = "Departments")

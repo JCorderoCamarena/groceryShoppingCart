@@ -1,6 +1,8 @@
 package com.jorgecamarena.shoppingcart.di
 
+import com.jorgecamarena.shoppingcart.data.dao.MeasureDao
 import com.jorgecamarena.shoppingcart.data.dao.ProductDao
+import com.jorgecamarena.shoppingcart.data.repository.MeasureRepository
 import com.jorgecamarena.shoppingcart.data.repository.ProductRepository
 import dagger.Module
 import dagger.Provides
@@ -17,6 +19,14 @@ class RepositoryModule {
     fun provideProductRepository(productDao: ProductDao): ProductRepository {
         return ProductRepository(
             productDao = productDao
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideMeasureRepository(measureDao: MeasureDao): MeasureRepository {
+        return MeasureRepository(
+            measureDao = measureDao
         )
     }
 

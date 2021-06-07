@@ -11,6 +11,6 @@ data class Product(
     @ColumnInfo(name = "product_name") var name: String?,
     @ColumnInfo(name = "measurement") val measurement: Long?,
     @ColumnInfo(name = "image_link") var imageLink: String?,
-    @ColumnInfo(name = "created_at") val createdAt: Long?,
+    @ColumnInfo(name = "created_at") var createdAt: Long? = null,
     @ColumnInfo(name = "modified_at") var modifiedAt: Long? = null
 )

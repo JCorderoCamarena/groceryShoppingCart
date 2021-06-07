@@ -10,13 +10,16 @@ interface MeasureDao {
     @Query("SELECT * FROM measures ORDER BY measure_name ASC")
     fun selectMeasuresByNameAsc(): LiveData<List<Measure>>
 
+    @Query("SELECT * FROM measures WHERE id=:id")
+    fun selectMeasureById(id: Long): LiveData<Measure>?
+
     @Insert
-    fun insertMeasure(measure: Measure)
+    suspend fun insertMeasure(measure: Measure)
 
     @Update
-    fun updateMeasure(measure: Measure)
+    suspend fun updateMeasure(measure: Measure)
 
     @Delete
-    fun deleteMeasure(measure: Measure)
+    suspend fun deleteMeasure(measure: Measure)
 
 }

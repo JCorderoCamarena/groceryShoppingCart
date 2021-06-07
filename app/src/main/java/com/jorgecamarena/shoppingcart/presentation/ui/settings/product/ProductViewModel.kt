@@ -23,32 +23,30 @@ class ProductViewModel @Inject constructor(
 
     var productToEdit: LiveData<Product> = MutableLiveData()
 
-    var loading by mutableStateOf(false)
+    var isLoading by mutableStateOf(false)
         private set
 
     fun loadProducts() {
         Log.d("DEBUG", "loadProducts() called")
-        loading = true
+        isLoading = true
         productRepository.getProducts().let {
             products = it
-            loading = false
+            isLoading = false
         }
     }
 
 
     fun saveProduct(name: String, imageLink: String) {
-        loading = true
+        isLoading = true
         val product = Product(
-            id = null,
             name = name,
             imageLink = imageLink,
-            measurement = null,
-            createdAt = System.currentTimeMillis(),
-            modifiedAt = null
+            measurement = null
         )
+
         viewModelScope.launch {
             productRepository.saveProduct(product)
-            loading = false
+            isLoading = false
         }
     }
 
@@ -59,10 +57,10 @@ class ProductViewModel @Inject constructor(
     }
 
     fun updateProduct(product: Product) {
-        loading = true
+        isLoading = true
         viewModelScope.launch {
             productRepository.updateProduct(product)
-            loading = false
+            isLoading = false
         }
     }
 

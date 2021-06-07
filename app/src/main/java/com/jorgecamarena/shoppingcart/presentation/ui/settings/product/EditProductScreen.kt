@@ -69,15 +69,12 @@ fun ProductEditForm(
                         name = name,
                         imageLink = imageLink
                     )
-
-                    Log.d("DEBUG", "ProductEditForm() called $editedProduct")
-
                     updateProduct(editedProduct)
                     navHostController.navigateUp()
                 },
                 enabled = name.isNotBlank() && imageLink.isNotBlank()
             ) {
-                Text(text = stringResource(id = R.string.label_edit))
+                Text(text = stringResource(id = R.string.label_save))
             }
         }
 

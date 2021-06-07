@@ -25,7 +25,12 @@ class ProductRepository @Inject constructor(
     }
 
     suspend fun saveProduct(product: Product) {
-        productDao.saveProduct(product)
+        productDao.saveProduct(
+            product.apply {
+                createdAt = System.currentTimeMillis()
+                modifiedAt = System.currentTimeMillis()
+            }
+        )
     }
 
     suspend fun deleteProduct(product: Product) {
@@ -33,7 +38,11 @@ class ProductRepository @Inject constructor(
     }
 
     suspend fun updateProduct(product: Product) {
-        productDao.updateProduct(product)
+        productDao.updateProduct(
+            product.apply {
+                modifiedAt = System.currentTimeMillis()
+            }
+        )
     }
 
 }

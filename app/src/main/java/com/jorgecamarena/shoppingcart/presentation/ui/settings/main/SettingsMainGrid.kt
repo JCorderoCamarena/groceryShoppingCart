@@ -24,7 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.jorgecamarena.shoppingcart.presentation.ui.NavigationConstants
+import com.jorgecamarena.shoppingcart.presentation.ui.navigation.ScreenNavItem
 import com.jorgecamarena.shoppingcart.presentation.ui.theme.DMSurfaceColor
 import com.jorgecamarena.shoppingcart.presentation.ui.theme.SecondaryLightColor
 
@@ -83,24 +83,24 @@ fun generateSettingsList(navHostController: NavHostController): List<SettingsGri
         icon = Icons.Filled.ShoppingCart,
         iconDescription =  "Products",
         label = "Products",
-        action =  { navHostController.navigate(NavigationConstants.productsMainScreen) }
+        action =  { navHostController.navigate(ScreenNavItem.ProductList.route) }
     ),
     SettingsGridItem(
         icon = Icons.Filled.SquareFoot,
         iconDescription =  "Measures",
         label = "Measures",
-        action = { navHostController.navigate(NavigationConstants.measuresMainScreen) }
+        action = { navHostController.navigate(ScreenNavItem.MeasureList.route) }
     ),
     SettingsGridItem(
         icon = Icons.Filled.LocalMall,
         iconDescription =  "Department",
         label = "Department",
-        action = { navHostController.navigate(NavigationConstants.measuresMainScreen) }
+        action = { navHostController.navigate(ScreenNavItem.DepartmentList.route) }
     ),
     SettingsGridItem(
         icon = Icons.Filled.FactCheck,
         iconDescription =  "Status",
         label = "Status",
-        action = { navHostController.navigate(NavigationConstants.measuresMainScreen) }
+        action = { navHostController.navigate(ScreenNavItem.StatusList.route) }
     )
 )

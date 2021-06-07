@@ -6,8 +6,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "measures")
 data class Measure(
-    @PrimaryKey(autoGenerate = true) val id: Long?,
-    @ColumnInfo(name = "measure_name") val name: String?,
-    @ColumnInfo(name = "created_at") val createdAt: Long?,
-    @ColumnInfo(name = "modified_at") val modifiedAt: Long?
+    @PrimaryKey(autoGenerate = true) val id: Long? = null,
+    @ColumnInfo(name = "measure_name") var name: String?,
+    @ColumnInfo(name = "created_at") var createdAt: Long? = null,
+    @ColumnInfo(name = "modified_at") var modifiedAt: Long? = null
 )

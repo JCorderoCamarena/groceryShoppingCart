@@ -11,4 +11,24 @@
     <string name="label_cancel">Cancelar</string>
     <string name="label_save">Guardar</string>
     <string name="label_edit">Editar</string>
+
+    <string name="title_products">Productos</string>
+    <string name="title_add_product">Agregar Producto</string>
+    <string name="title_edit_product">Editar Producto</string>
+
+    <string name="title_departments">Departamentos</string>
+    <string name="title_add_department">Agregar Departamento</string>
+    <string name="title_edit_department">Editar Departamento</string>
+
+    <string name="title_measures">Medidas</string>
+    <string name="title_add_measure">Agregar Medida</string>
+    <string name="title_edit_measure">Editar Medida</string>
+
+    <string name="title_status">Estatus</string>
+    <string name="title_add_status">Agregar Estatus</string>
+    <string name="title_edit_status">Editar Estatus</string>
+
+    <string name="label_no_measures_found">Medidas no encontradas</string>
+    <string name="label_name">Nombre</string>
+
 </resources>
