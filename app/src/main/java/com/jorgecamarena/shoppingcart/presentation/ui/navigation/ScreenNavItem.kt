@@ -43,14 +43,12 @@ sealed class ScreenNavItem(
     object Unknown: ScreenNavItem(Routes.Unknown, "", -1, Icons.Filled.DeviceUnknown )
 
     companion object {
-
         fun fromScreenNavString(possibleRoute: String): ScreenNavItem {
             return ScreenNavItem::class.sealedSubclasses
                 .firstOrNull { it.objectInstance?.route == possibleRoute }
                 ?.objectInstance
                 ?: Unknown
         }
-
     }
 
 }

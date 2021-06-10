@@ -23,13 +23,18 @@ fun MeasureMainScreen(
 ) {
 
     val measureList = measureViewModel.measureList.observeAsState(listOf()).value
-    measureViewModel.loadMeasures()
 
     if (measureViewModel.isLoading && measureList.isEmpty()) {
         // TODO: Replace with shimmer animation
-        Text(
-            text = "Loading Measures.. replace with Shimmer animation"
-        )
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = "Loading Measures.. replace with Shimmer animation"
+            )
+        }
     } else if(measureList.isEmpty()) {
         Column(
             modifier = Modifier.fillMaxSize(),

@@ -1,10 +1,8 @@
-package com.jorgecamarena.shoppingcart.presentation.ui.settings.product.list
+package com.jorgecamarena.shoppingcart.presentation.ui.settings.department.list
 
 import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -13,39 +11,32 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
-import com.google.accompanist.insets.navigationBarsPadding
-import com.google.accompanist.insets.systemBarsPadding
-import com.jorgecamarena.shoppingcart.R
-import com.jorgecamarena.shoppingcart.data.entity.Product
+import com.jorgecamarena.shoppingcart.data.entity.Department
 import com.jorgecamarena.shoppingcart.presentation.ui.settings.product.widgets.PartialSwipeToDismiss
 
-@OptIn(ExperimentalMaterialApi::class)
+@ExperimentalMaterialApi
 @Composable
-fun ProductList(
-    products: List<Product>,
-    navHostController: NavHostController,
-    deleteProduct: (Product) -> Unit
+fun DepartmentList(
+    departmentList: List<Department>,
+    onDeleteDepartment: (Department) -> Unit,
+    onEditDepartment: (Long?) -> Unit
 ) {
     Column(
         modifier = Modifier
-            .systemBarsPadding()
-            .navigationBarsPadding()
             .padding(top = 8.dp, bottom = 60.dp)
     ) {
         LazyColumn(
-            modifier = Modifier
-                .fillMaxSize(),
+            modifier = Modifier.fillMaxSize(),
             contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            items(products) { product ->
-
+            items(departmentList) { department ->
                 val dismissState = rememberDismissState()
 
                 val coroutineScope = rememberCoroutineScope()
@@ -90,24 +81,19 @@ fun ProductList(
                                 .padding(horizontal = 20.dp),
                             contentAlignment = alignment
                         ) {
-                            ProductBackgroundActions(
-                                navHostController = navHostController,
+                            DepartmentBackgroundActions(
                                 alignment = alignment,
-                                deleteProduct = deleteProduct,
-                                product = product,
                                 dismissState = dismissState,
                                 coroutineScope = coroutineScope,
+                                scale = scale,
                                 icon = icon,
-                                scale = scale
+                                onDeleteDepartment = { onDeleteDepartment(department) },
+                                onEditDepartment = { onEditDepartment(department.id) },
                             )
                         }
                     },
                     dismissContent = {
-                        ProductCard(
-                            modifier = Modifier,
-                            product = product,
-                            dismissState = dismissState
-                        )
+                        DepartmentCard(department = department, dismissState = dismissState)
                     }
                 )
             }

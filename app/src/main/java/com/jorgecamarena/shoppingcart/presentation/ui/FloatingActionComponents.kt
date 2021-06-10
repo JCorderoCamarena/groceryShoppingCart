@@ -21,5 +21,9 @@ fun FloatingActionComponent(
         FloatingActionButton(onClick = { navHostController.navigate(ScreenNavItem.MeasureAdd.route) }) {
             Icon(imageVector = Icons.Filled.Add, contentDescription = "Add Measure" )
         }
+    } else if (currentRoute == ScreenNavItem.DepartmentList.route) {
+        FloatingActionButton(onClick = { navHostController.navigate(ScreenNavItem.DepartmentAdd.route) }) {
+            Icon(imageVector = Icons.Filled.Add, contentDescription = "Add Department" )
+        }
     }
 }

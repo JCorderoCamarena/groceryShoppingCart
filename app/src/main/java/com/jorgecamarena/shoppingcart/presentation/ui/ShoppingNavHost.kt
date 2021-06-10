@@ -1,6 +1,5 @@
 package com.jorgecamarena.shoppingcart.presentation.ui
 
-import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -16,6 +15,10 @@ import com.jorgecamarena.shoppingcart.presentation.ui.about.AboutView
 import com.jorgecamarena.shoppingcart.presentation.ui.home.HomeView
 import com.jorgecamarena.shoppingcart.presentation.ui.navigation.ScreenNavItem
 import com.jorgecamarena.shoppingcart.presentation.ui.settings.*
+import com.jorgecamarena.shoppingcart.presentation.ui.settings.department.AddDepartmentScreen
+import com.jorgecamarena.shoppingcart.presentation.ui.settings.department.DepartmentMainScreen
+import com.jorgecamarena.shoppingcart.presentation.ui.settings.department.DepartmentViewModel
+import com.jorgecamarena.shoppingcart.presentation.ui.settings.department.EditDepartmentScreen
 import com.jorgecamarena.shoppingcart.presentation.ui.settings.measure.AddMeasureScreen
 import com.jorgecamarena.shoppingcart.presentation.ui.settings.measure.EditMeasureScreen
 import com.jorgecamarena.shoppingcart.presentation.ui.settings.measure.MeasureMainScreen
@@ -103,7 +106,33 @@ fun ShoppingNavHost() {
                 ) {}
             }
             composable(ScreenNavItem.DepartmentList.route) {
-                DepartmentsMainView { }
+                val departmentViewModel = hiltViewModel<DepartmentViewModel>()
+                DepartmentMainScreen(
+                    departmentViewModel = departmentViewModel,
+                    navHostController = navController
+                )
+            }
+            composable(ScreenNavItem.DepartmentAdd.route) {
+                val departmentViewModel = hiltViewModel<DepartmentViewModel>()
+                AddDepartmentScreen(
+                    departmentViewModel = departmentViewModel,
+                    navHostController = navController
+                )
+            }
+            composable(
+                ScreenNavItem.DepartmentEdit.route,
+                arguments = listOf(navArgument("departmentId") {
+                    type = NavType.LongType
+                })
+            ) {
+                it.arguments?.getLong("departmentId")?.let { id ->
+                    val departmentViewModel = hiltViewModel<DepartmentViewModel>()
+                    EditDepartmentScreen(
+                        departmentViewModel = departmentViewModel,
+                        navHostController = navController,
+                        idDepartment = id
+                    )
+                }
             }
             composable(ScreenNavItem.MeasureList.route) {
                 val measureViewModel = hiltViewModel<MeasureViewModel>()

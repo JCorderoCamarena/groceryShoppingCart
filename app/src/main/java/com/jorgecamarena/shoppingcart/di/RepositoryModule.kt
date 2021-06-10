@@ -1,7 +1,9 @@
 package com.jorgecamarena.shoppingcart.di
 
+import com.jorgecamarena.shoppingcart.data.dao.DepartmentDao
 import com.jorgecamarena.shoppingcart.data.dao.MeasureDao
 import com.jorgecamarena.shoppingcart.data.dao.ProductDao
+import com.jorgecamarena.shoppingcart.data.repository.DepartmentRepository
 import com.jorgecamarena.shoppingcart.data.repository.MeasureRepository
 import com.jorgecamarena.shoppingcart.data.repository.ProductRepository
 import dagger.Module
@@ -30,4 +32,11 @@ class RepositoryModule {
         )
     }
 
+    @Singleton
+    @Provides
+    fun provideDepartmentRepository(departmentDao: DepartmentDao): DepartmentRepository {
+        return DepartmentRepository(
+            departmentDao = departmentDao
+        )
+    }
 }

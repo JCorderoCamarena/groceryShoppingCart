@@ -1,4 +1,4 @@
-package com.jorgecamarena.shoppingcart.presentation.ui.settings.measure.list
+package com.jorgecamarena.shoppingcart.presentation.ui.settings.department.list
 
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -11,14 +11,15 @@ import kotlinx.coroutines.launch
 
 @ExperimentalMaterialApi
 @Composable
-fun MeasureBackgroundActions(
-    onEditMeasure: () -> Unit,
+fun DepartmentBackgroundActions(
     alignment: Alignment,
-    onDeleteMeasure: () -> Unit,
-    dismissState: DismissState,
     coroutineScope: CoroutineScope,
+    dismissState: DismissState,
+    icon: ImageVector,
     scale: Float,
-    icon: ImageVector
+    onEditDepartment: () -> Unit,
+    onDeleteDepartment: () -> Unit
+
 ) {
     when(alignment) {
         Alignment.CenterStart -> {
@@ -26,13 +27,13 @@ fun MeasureBackgroundActions(
                 onClick = {
                     coroutineScope.launch {
                         dismissState.animateTo(DismissValue.Default)
-                        onEditMeasure()
+                        onEditDepartment()
                     }
                 }
             ) {
                 Icon(
                     imageVector = icon,
-                    contentDescription = "Edit Measure",
+                    contentDescription = "Edit Department",
                     modifier = Modifier.scale(scale),
                     tint = MaterialTheme.colors.onPrimary
                 )
@@ -44,16 +45,17 @@ fun MeasureBackgroundActions(
                     coroutineScope.launch {
                         dismissState.animateTo(DismissValue.Default)
                     }
-                    onDeleteMeasure()
+                    onDeleteDepartment()
                 }
             ) {
                 Icon(
                     imageVector = icon,
-                    contentDescription = "Delete Measure",
+                    contentDescription = "Delete Department",
                     modifier = Modifier.scale(scale),
                     tint = MaterialTheme.colors.onError
                 )
             }
         }
     }
+
 }

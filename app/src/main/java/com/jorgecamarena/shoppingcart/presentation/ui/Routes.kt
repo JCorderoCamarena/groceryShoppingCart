@@ -1,7 +1,5 @@
 package com.jorgecamarena.shoppingcart.presentation.ui
 
-import com.jorgecamarena.shoppingcart.presentation.ui.navigation.ScreenNavItem
-
 enum class Routes {
     Unknown,
 

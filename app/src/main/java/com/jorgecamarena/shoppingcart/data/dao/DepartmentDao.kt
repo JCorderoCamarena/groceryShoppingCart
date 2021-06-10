@@ -10,13 +10,16 @@ interface DepartmentDao {
     @Query("SELECT * FROM departments ORDER BY department_name ASC")
     fun selectAllDepartmentByNameAsc(): LiveData<List<Department>>
 
+    @Query("SELECT * FROM departments WHERE id=:id")
+    fun getDepartmentById(id: Long): LiveData<Department>?
+
     @Insert
-    fun insertDepartment(department: Department)
+    suspend fun insertDepartment(department: Department)
 
     @Update
-    fun updateDepartment(department: Department)
+    suspend fun updateDepartment(department: Department)
 
     @Delete
-    fun deleteDepartment(department: Department)
+    suspend fun deleteDepartment(department: Department)
 
 }
