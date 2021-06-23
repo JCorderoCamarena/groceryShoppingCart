@@ -24,7 +24,11 @@ class MeasureViewModel @Inject constructor(
 
     var isLoading by mutableStateOf(false)
 
-    fun loadMeasures() {
+    init {
+        loadMeasures()
+    }
+
+    private fun loadMeasures() {
         isLoading = true
         viewModelScope.launch {
             measureRepository.getMeasures().let {

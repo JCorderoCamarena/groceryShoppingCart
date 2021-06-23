@@ -35,8 +35,8 @@ fun ProductEditForm(
     product: Product,
     updateProduct: (Product) -> Unit
 ) {
-    var name by remember { mutableStateOf(product.name ?: "") }
-    var imageLink by remember { mutableStateOf(product.imageLink ?: "") }
+    var name by remember { mutableStateOf(product.name) }
+    var imageLink by remember { mutableStateOf(product.imageLink) }
 
     Column(
         modifier = Modifier

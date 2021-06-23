@@ -22,11 +22,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.jorgecamarena.shoppingcart.presentation.ui.navigation.ScreenNavItem
+import com.jorgecamarena.shoppingcart.presentation.ui.Routes
 import com.jorgecamarena.shoppingcart.presentation.ui.theme.DMSurfaceColor
 import com.jorgecamarena.shoppingcart.presentation.ui.theme.SecondaryLightColor
+import com.jorgecamarena.shoppingcart.R
 
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -68,7 +70,7 @@ fun GridItemCard(gridItem: SettingsGridItem) {
                     .size(40.dp)
             )
             Text(
-                text = gridItem.label,
+                text = stringResource(id = gridItem.label),
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
                     .padding(top = 8.dp),
@@ -82,25 +84,25 @@ fun generateSettingsList(navHostController: NavHostController): List<SettingsGri
     SettingsGridItem(
         icon = Icons.Filled.ShoppingCart,
         iconDescription =  "Products",
-        label = "Products",
-        action =  { navHostController.navigate(ScreenNavItem.ProductList.route) }
+        label = R.string.title_products,
+        action =  { navHostController.navigate(Routes.ProductList.route) }
     ),
     SettingsGridItem(
         icon = Icons.Filled.SquareFoot,
         iconDescription =  "Measures",
-        label = "Measures",
-        action = { navHostController.navigate(ScreenNavItem.MeasureList.route) }
+        label = R.string.title_measures,
+        action = { navHostController.navigate(Routes.MeasuresList.route) }
     ),
     SettingsGridItem(
         icon = Icons.Filled.LocalMall,
         iconDescription =  "Department",
-        label = "Department",
-        action = { navHostController.navigate(ScreenNavItem.DepartmentList.route) }
+        label = R.string.title_departments,
+        action = { navHostController.navigate(Routes.DepartmentList.route) }
     ),
     SettingsGridItem(
         icon = Icons.Filled.FactCheck,
         iconDescription =  "Status",
-        label = "Status",
-        action = { navHostController.navigate(ScreenNavItem.StatusList.route) }
+        label = R.string.title_status,
+        action = { navHostController.navigate(Routes.StatusList.route) }
     )
 )

@@ -1,52 +1,61 @@
 package com.jorgecamarena.shoppingcart.presentation.ui
 
-enum class Routes {
-    Unknown,
+import com.jorgecamarena.shoppingcart.presentation.ui.RoutesWithParams.getEditCartRoute
+import com.jorgecamarena.shoppingcart.presentation.ui.RoutesWithParams.getEditDepartmentRoute
+import com.jorgecamarena.shoppingcart.presentation.ui.RoutesWithParams.getEditMeasureRoute
+import com.jorgecamarena.shoppingcart.presentation.ui.RoutesWithParams.getEditProductRoute
+import com.jorgecamarena.shoppingcart.presentation.ui.RoutesWithParams.getEditStatusRoute
+import com.jorgecamarena.shoppingcart.utils.*
 
-    Home,
-    Settings,
-    About,
+enum class Routes(
+    val route: String
+) {
+    Unknown("Unknown"),
 
-    ProductList,
-    ProductAdd,
-    ProductEdit,
+    Home("Home"),
+    Settings("Settings"),
+    About("About"),
 
-    DepartmentList,
-    DepartmentAdd,
-    DepartmentEdit,
+    ProductList("productList"),
+    ProductAdd("addProduct"),
+    ProductEdit(getEditProductRoute()),
 
-    MeasuresList,
-    MeasuresAdd,
-    MeasuresEdit,
+    DepartmentList("departmentList"),
+    DepartmentAdd("addDepartment"),
+    DepartmentEdit(getEditDepartmentRoute()),
 
-    StatusList,
-    StatusAdd,
-    StatusEdit,
+    MeasuresList("measureList"),
+    MeasuresAdd("addMeasure"),
+    MeasuresEdit(getEditMeasureRoute()),
 
-    CartAdd,
-    CartEdit,
+    StatusList("statusList"),
+    StatusAdd("addStatus"),
+    StatusEdit(getEditStatusRoute()),
+
+    CartAdd("addCart"),
+    CartEdit(getEditCartRoute()),
 }
 
 
-object NavigationRoutes {
+object RoutesWithParams {
 
-    const val Home              = "Home"
-    const val Settings          = "Settings"
-    const val About             = "About"
+    fun getEditProductRoute(param: String = "{$PRODUCT_ID}"): String {
+        return "editProduct/$param"
+    }
 
-    const val ProductList       = "productList"
-    const val AddProduct        = "addProduct"
-    const val EditProduct       = "editProduct/{productId}"
+    fun getEditDepartmentRoute(param: String = "{$DEPARTMENT_ID}"): String {
+        return "editDepartment/$param"
+    }
 
-    const val DepartmentList    = "departmentList"
-    const val AddDepartment     = "addDepartment"
-    const val EditDepartment    = "editDepartment/{departmentId}"
+    fun getEditMeasureRoute(param: String = "{$MEASURE_ID}"): String {
+        return "editMeasure/$param"
+    }
 
-    const val MeasureList       = "measureList"
-    const val AddMeasure        = "addMeasure"
-    const val EditMeasure       = "editMeasure/{measureId}"
+    fun getEditStatusRoute(param: String = "{$STATUS_ID}"): String {
+        return "editStatus/$param";
+    }
 
-    const val StatusList        = "statusList"
-    const val AddStatus         = "addStatus"
-    const val EditStatus        = "editStatus/{statusId}"
+    fun getEditCartRoute(param: String = "{$CART_ID}") : String {
+        return "editCart/$param"
+    }
 }

@@ -9,6 +9,7 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavHostController
 import com.jorgecamarena.shoppingcart.data.entity.Product
+import com.jorgecamarena.shoppingcart.presentation.ui.RoutesWithParams
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -30,7 +31,7 @@ fun ProductBackgroundActions(
                 onClick = {
                     coroutineScope.launch {
                         dismissState.animateTo(DismissValue.Default)
-                        navHostController.navigate("editProduct/${product.id}")
+                        navHostController.navigate(RoutesWithParams.getEditProductRoute("${product.id}"))
                     }
                 }
             ) {

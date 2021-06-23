@@ -13,16 +13,16 @@ fun FloatingActionComponent(
     navHostController: NavHostController,
     currentRoute: String? = null
 ) {
-    if (currentRoute == ScreenNavItem.ProductList.route) {
-        FloatingActionButton(onClick = { navHostController.navigate(ScreenNavItem.ProductAdd.route) }) {
+    if (currentRoute == Routes.ProductList.route) {
+        FloatingActionButton(onClick = { navHostController.navigate(Routes.ProductAdd.route) }) {
             Icon(imageVector = Icons.Default.Add, contentDescription = "Add Product")
         }
-    } else if (currentRoute == ScreenNavItem.MeasureList.route) {
-        FloatingActionButton(onClick = { navHostController.navigate(ScreenNavItem.MeasureAdd.route) }) {
+    } else if (currentRoute == Routes.MeasuresList.route) {
+        FloatingActionButton(onClick = { navHostController.navigate(Routes.MeasuresAdd.route) }) {
             Icon(imageVector = Icons.Filled.Add, contentDescription = "Add Measure" )
         }
-    } else if (currentRoute == ScreenNavItem.DepartmentList.route) {
-        FloatingActionButton(onClick = { navHostController.navigate(ScreenNavItem.DepartmentAdd.route) }) {
+    } else if (currentRoute == Routes.DepartmentList.route) {
+        FloatingActionButton(onClick = { navHostController.navigate(Routes.DepartmentAdd.route) }) {
             Icon(imageVector = Icons.Filled.Add, contentDescription = "Add Department" )
         }
     }

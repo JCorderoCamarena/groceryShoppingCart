@@ -37,11 +37,9 @@ fun MeasureCard(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.padding(16.dp)
         ) {
-            measure.name?.let {
-                Text(
-                    text = it
-                )
-            }
+            Text(
+                text = measure.name
+            )
         }
     }
 

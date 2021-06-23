@@ -31,4 +31,7 @@
     <string name="label_no_measures_found">Medidas no encontradas</string>
     <string name="label_name">Nombre</string>
 
+    <string name="label_department_name">Nombre del Departmento</string>
+    <string name="label_no_departments_found">Departamentos no encontrados</string>
+
 </resources>

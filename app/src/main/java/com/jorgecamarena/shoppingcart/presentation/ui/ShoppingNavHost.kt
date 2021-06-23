@@ -27,6 +27,9 @@ import com.jorgecamarena.shoppingcart.presentation.ui.settings.product.AddProduc
 import com.jorgecamarena.shoppingcart.presentation.ui.settings.product.EditProductScreen
 import com.jorgecamarena.shoppingcart.presentation.ui.settings.product.ProductViewModel
 import com.jorgecamarena.shoppingcart.presentation.ui.settings.product.ProductsScreen
+import com.jorgecamarena.shoppingcart.utils.DEPARTMENT_ID
+import com.jorgecamarena.shoppingcart.utils.MEASURE_ID
+import com.jorgecamarena.shoppingcart.utils.PRODUCT_ID
 
 
 @ExperimentalMaterialApi
@@ -59,16 +62,17 @@ fun ShoppingNavHost() {
         bottomBar = {
             BottomNavigation {
                 bottomBarItems.forEach { screen ->
+
+                    val routeInstance = currentRoute?.let {
+                        ScreenNavItem.fromScreenNavString(it)
+                    }
+
                     BottomNavigationItem(
                         icon = { Icon(screen.icon, contentDescription = null) },
                         label = { Text(stringResource(screen.resourceId)) },
-                        selected = currentRoute == screen.route || currentRoute?.let {
-                            ScreenNavItem.fromScreenNavString(
-                                it
-                            ).parentRoute
-                        } == screen.item,
+                        selected = routeInstance?.item == screen.item || routeInstance?.parentRoute == screen.item,
                         onClick = {
-                            navController.navigate(screen.route) {
+                            navController.navigate(screen.item.route) {
                                 // Pop up to the start destination of the graph to
                                 // avoid building up a large stack of destinations
                                 // on the back stack as users select items
@@ -88,31 +92,31 @@ fun ShoppingNavHost() {
             FloatingActionComponent(navHostController = navController, currentRoute = currentRoute)
         }
     ) {
-        NavHost(navController = navController, startDestination = ScreenNavItem.Home.route) {
-            composable(ScreenNavItem.Home.route) {
+        NavHost(navController = navController, startDestination = Routes.Home.route) {
+            composable(Routes.Home.route) {
                 HomeView()
             }
-            composable(ScreenNavItem.Settings.route) {
+            composable(Routes.Settings.route) {
                 SettingsMainView(navHostController = navController)
             }
-            composable(ScreenNavItem.About.route) {
+            composable(Routes.About.route) {
                 AboutView()
             }
-            composable(ScreenNavItem.ProductList.route) {
+            composable(Routes.ProductList.route) {
                 val productViewModel = hiltViewModel<ProductViewModel>()
                 ProductsScreen(
                     productViewModel = productViewModel,
                     navHostController = navController
-                ) {}
+                )
             }
-            composable(ScreenNavItem.DepartmentList.route) {
+            composable(Routes.DepartmentList.route) {
                 val departmentViewModel = hiltViewModel<DepartmentViewModel>()
                 DepartmentMainScreen(
                     departmentViewModel = departmentViewModel,
                     navHostController = navController
                 )
             }
-            composable(ScreenNavItem.DepartmentAdd.route) {
+            composable(Routes.DepartmentAdd.route) {
                 val departmentViewModel = hiltViewModel<DepartmentViewModel>()
                 AddDepartmentScreen(
                     departmentViewModel = departmentViewModel,
@@ -120,12 +124,12 @@ fun ShoppingNavHost() {
                 )
             }
             composable(
-                ScreenNavItem.DepartmentEdit.route,
-                arguments = listOf(navArgument("departmentId") {
+                Routes.DepartmentEdit.route,
+                arguments = listOf(navArgument(DEPARTMENT_ID) {
                     type = NavType.LongType
                 })
             ) {
-                it.arguments?.getLong("departmentId")?.let { id ->
+                it.arguments?.getLong(DEPARTMENT_ID)?.let { id ->
                     val departmentViewModel = hiltViewModel<DepartmentViewModel>()
                     EditDepartmentScreen(
                         departmentViewModel = departmentViewModel,
@@ -134,14 +138,14 @@ fun ShoppingNavHost() {
                     )
                 }
             }
-            composable(ScreenNavItem.MeasureList.route) {
+            composable(Routes.MeasuresList.route) {
                 val measureViewModel = hiltViewModel<MeasureViewModel>()
                 MeasureMainScreen(
                     navHostController = navController,
                     measureViewModel = measureViewModel
                 )
             }
-            composable(ScreenNavItem.MeasureAdd.route) {
+            composable(Routes.MeasuresAdd.route) {
                 val measureViewModel = hiltViewModel<MeasureViewModel>()
                 AddMeasureScreen(
                     navHostController = navController,
@@ -149,12 +153,12 @@ fun ShoppingNavHost() {
                 )
             }
             composable(
-                ScreenNavItem.MeasureEdit.route,
-                arguments = listOf(navArgument("measureId") {
+                Routes.MeasuresEdit.route,
+                arguments = listOf(navArgument(MEASURE_ID) {
                     type = NavType.LongType
                 })
             ) {
-                it.arguments?.getLong("measureId")?.let {
+                it.arguments?.getLong(MEASURE_ID)?.let {
                     id ->
                     val measureViewModel = hiltViewModel<MeasureViewModel>()
                     EditMeasureScreen(
@@ -164,10 +168,10 @@ fun ShoppingNavHost() {
                     )
                 }
             }
-            composable(ScreenNavItem.StatusList.route) {
+            composable(Routes.StatusList.route) {
                 StatusMainView { }
             }
-            composable(ScreenNavItem.ProductAdd.route) {
+            composable(Routes.ProductAdd.route) {
                 val productViewModel = hiltViewModel<ProductViewModel>()
                 AddProductScreen(
                     productViewModel = productViewModel,
@@ -175,12 +179,12 @@ fun ShoppingNavHost() {
                 )
             }
             composable(
-                ScreenNavItem.ProductEdit.route,
-                arguments = listOf(navArgument("productId") {
+                Routes.ProductEdit.route,
+                arguments = listOf(navArgument(PRODUCT_ID) {
                     type = NavType.LongType
                 })
             ) {
-                it.arguments?.getLong("productId")?.let { id ->
+                it.arguments?.getLong(PRODUCT_ID)?.let { id ->
                     val productViewModel = hiltViewModel<ProductViewModel>()
                     EditProductScreen(
                         productViewModel = productViewModel,

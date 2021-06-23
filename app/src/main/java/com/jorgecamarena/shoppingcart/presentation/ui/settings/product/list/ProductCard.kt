@@ -66,12 +66,10 @@ fun ProductCard(modifier: Modifier, product: Product, dismissState: DismissState
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                product.name?.let {
-                    Text(
-                        modifier= Modifier.padding(all = 8.dp),
-                        text = it
-                    )
-                }
+                Text(
+                    modifier= Modifier.padding(all = 8.dp),
+                    text = product.name
+                )
             }
         }
 

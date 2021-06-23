@@ -1,6 +1,5 @@
 package com.jorgecamarena.shoppingcart.presentation.ui.settings.product
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -26,24 +25,24 @@ class ProductViewModel @Inject constructor(
     var isLoading by mutableStateOf(false)
         private set
 
-    fun loadProducts() {
-        Log.d("DEBUG", "loadProducts() called")
-        isLoading = true
-        productRepository.getProducts().let {
-            products = it
-            isLoading = false
+    var selectedProduct by mutableStateOf(Product())
+
+    init {
+        loadProducts()
+    }
+
+    private fun loadProducts() {
+        viewModelScope.launch {
+            isLoading = true
+            productRepository.getProducts().let {
+                products = it
+                isLoading = false
+            }
         }
     }
 
-
-    fun saveProduct(name: String, imageLink: String) {
+    fun saveProduct(product: Product) {
         isLoading = true
-        val product = Product(
-            name = name,
-            imageLink = imageLink,
-            measurement = null
-        )
-
         viewModelScope.launch {
             productRepository.saveProduct(product)
             isLoading = false

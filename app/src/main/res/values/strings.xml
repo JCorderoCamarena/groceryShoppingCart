@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Shopping Cart</string>
     <string name="title_home">Home</string>
@@ -29,5 +30,8 @@
 
     <string name="label_no_measures_found">No measures found</string>
     <string name="label_name">Name</string>
+
+    <string name="label_department_name">Department Name</string>
+    <string name="label_no_departments_found">No departments found</string>
 
 </resources>

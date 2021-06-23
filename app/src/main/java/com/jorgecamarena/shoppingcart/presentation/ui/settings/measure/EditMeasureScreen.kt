@@ -31,7 +31,7 @@ fun EditMeasureScreen(
                 onCancel = navHostController::navigateUp,
                 onSaveMeasure = measureViewModel::updateMeasure,
                 measure = measure,
-                currentName = measure.name!!
+                currentName = measure.name
             )
         }
     }

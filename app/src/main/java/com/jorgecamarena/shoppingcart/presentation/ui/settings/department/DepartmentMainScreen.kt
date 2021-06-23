@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import com.jorgecamarena.shoppingcart.R
+import com.jorgecamarena.shoppingcart.presentation.ui.RoutesWithParams
 import com.jorgecamarena.shoppingcart.presentation.ui.settings.department.list.DepartmentList
 
 @ExperimentalMaterialApi
@@ -28,7 +29,7 @@ fun DepartmentMainScreen(
             onDeleteDepartment = departmentViewModel::deleteDepartment,
             onEditDepartment = { id ->
                 id?.let {
-                    navHostController.navigate("editDepartment/$it")
+                    navHostController.navigate(RoutesWithParams.getEditDepartmentRoute("$it"))
                 }
             }
         )

@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import com.jorgecamarena.shoppingcart.R
+import com.jorgecamarena.shoppingcart.presentation.ui.RoutesWithParams
 import com.jorgecamarena.shoppingcart.presentation.ui.settings.measure.list.MeasureList
 
 @ExperimentalMaterialApi
@@ -49,7 +50,7 @@ fun MeasureMainScreen(
         MeasureList(
             measureList = measureList,
             onDeleteMeasure = measureViewModel::deleteMeasure,
-            onEditMeasure =  { it?.let { navHostController.navigate("editMeasure/$it") } }
+            onEditMeasure =  { it?.let { navHostController.navigate(RoutesWithParams.getEditMeasureRoute("$it")) } }
         )
     }
 }
