@@ -13,7 +13,7 @@ interface MeasureDao {
     @Query("SELECT * FROM measures WHERE id=:id")
     fun selectMeasureById(id: Long): LiveData<Measure>?
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertMeasure(measure: Measure)
 
     @Update

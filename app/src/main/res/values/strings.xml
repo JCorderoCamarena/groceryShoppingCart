@@ -33,5 +33,39 @@
 
     <string name="label_department_name">Department Name</string>
     <string name="label_no_departments_found">No departments found</string>
+    <string name="status_pending">Pending</string>
+    <string name="status_not_found">Not Found</string>
+    <string name="status_added_to_cart">Added to Cart</string>
+    <string name="measure_kilogram">Kilogram</string>
+    <string name="measure_liter">Liter</string>
+    <string name="measure_piece">Piece</string>
+    <string name="measure_gallon">Gallon</string>
+    <string name="measure_meter">Meter</string>
+    <string name="measure_foot">Foot</string>
+
+    <plurals name="kilogram">
+        <item quantity="one">%d Kg</item>
+        <item quantity="other">%d Kgs</item>
+    </plurals>
+    <plurals name="liter">
+        <item quantity="one">%d L</item>
+        <item quantity="other">%d Liters</item>
+    </plurals>
+    <plurals name="piece">
+        <item quantity="one">%d pc</item>
+        <item quantity="other">%d pcs</item>
+    </plurals>
+    <plurals name="gallon">
+        <item quantity="one">%d Gal</item>
+        <item quantity="other">%d Gals</item>
+    </plurals>
+    <plurals name="meter">
+        <item quantity="one">%d mt</item>
+        <item quantity="other">%d mts</item>
+    </plurals>
+    <plurals name="foot">
+        <item quantity="one">%d ft</item>
+        <item quantity="other">%d ft</item>
+    </plurals>
 
 </resources>

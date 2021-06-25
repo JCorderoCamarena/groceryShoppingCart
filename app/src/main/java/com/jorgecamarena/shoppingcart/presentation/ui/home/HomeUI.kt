@@ -13,7 +13,6 @@ fun HomeView() {
     )
 }
 
-
 @Preview(showBackground = true)
 @Composable
 fun HomeFragmentPreview() {

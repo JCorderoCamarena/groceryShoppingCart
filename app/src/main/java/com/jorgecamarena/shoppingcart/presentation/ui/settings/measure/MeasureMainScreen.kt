@@ -1,6 +1,5 @@
 package com.jorgecamarena.shoppingcart.presentation.ui.settings.measure
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,7 +18,6 @@ import com.jorgecamarena.shoppingcart.presentation.ui.settings.measure.list.Meas
 @ExperimentalMaterialApi
 @Composable
 fun MeasureMainScreen(
-    navHostController: NavHostController,
     measureViewModel: MeasureViewModel
 ) {
 
@@ -47,10 +45,6 @@ fun MeasureMainScreen(
             )
         }
     } else {
-        MeasureList(
-            measureList = measureList,
-            onDeleteMeasure = measureViewModel::deleteMeasure,
-            onEditMeasure =  { it?.let { navHostController.navigate(RoutesWithParams.getEditMeasureRoute("$it")) } }
-        )
+        MeasureList(measureList = measureList)
     }
 }

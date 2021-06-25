@@ -10,13 +10,16 @@ interface StatusDao {
     @Query("SELECT * FROM status ORDER BY status_name ASC")
     fun selectStatusByNameAsc(): LiveData<List<Status>>
 
-    @Insert
-    fun insertStatus(status: Status)
+    @Query("SELECT * FROM status WHERE id=:statusId")
+    fun selectStatus(statusId: Long): Status
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertStatus(status: Status)
 
     @Update
-    fun updateStatus(status: Status)
+    suspend fun updateStatus(status: Status)
 
     @Delete
-    fun deleteStatus(status: Status)
+    suspend fun deleteStatus(status: Status)
 
 }

@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import com.google.accompanist.insets.ProvideWindowInsets
-import com.jorgecamarena.shoppingcart.presentation.ui.ShoppingNavHost
+import com.jorgecamarena.shoppingcart.presentation.ui.ShoppingMainScaffold
 import com.jorgecamarena.shoppingcart.presentation.ui.theme.ShoppingCartTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -20,7 +20,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             ShoppingCartTheme {
                 ProvideWindowInsets {
-                    ShoppingNavHost()
+                    ShoppingMainScaffold()
                 }
             }
         }

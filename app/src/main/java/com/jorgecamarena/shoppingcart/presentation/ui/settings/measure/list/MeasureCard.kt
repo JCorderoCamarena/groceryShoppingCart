@@ -10,14 +10,17 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.jorgecamarena.shoppingcart.data.entity.Measure
+import com.jorgecamarena.shoppingcart.utils.MeasureEnum
+import com.jorgecamarena.shoppingcart.utils.MeasuresUtil
 
 @ExperimentalMaterialApi
 @Composable
 fun MeasureCard(
     measure: Measure,
-    dismissState: DismissState
+    dismissState: DismissState? = null
 ) {
 
     Card(
@@ -28,7 +31,7 @@ fun MeasureCard(
         elevation = animateDpAsState(
             when {
                 isSystemInDarkTheme() -> 0.dp
-                dismissState.dismissDirection != null -> 16.dp
+                dismissState?.dismissDirection != null -> 16.dp
                 else -> 4.dp
             }
         ).value
@@ -38,7 +41,9 @@ fun MeasureCard(
             modifier = Modifier.padding(16.dp)
         ) {
             Text(
-                text = measure.name
+                text = measure.type?.let { type ->
+                    MeasuresUtil.fromType(type)?.singleName?.let { stringResource(id = it) }
+                } ?: measure.name
             )
         }
     }
